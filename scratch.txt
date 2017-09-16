@@ -1,0 +1,11 @@
+// I type in the input box www.google.com
+// Input box sends POST request to our server
+// Server takes POST request with URL
+// Right away send a response back to client loading.html
+//   reads list of urls ** readListofUrls
+//    if there is no working memory object then read sites.txt and
+//      Creates object containing all urls
+//        storage = {'www.google.com': true, 'www.microsoft.com': true}
+//    run isUrlInList on storage == > return true or false;
+//      if not in storage => Add to storage (addUrlToList) ---> worker grabs html files
+//      if in storage => return archived html files
