@@ -26,17 +26,48 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
-  fs.readFile(exports.paths.list, callback);
+  fs.readFile(exports.paths.list, 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+
+    let sitesArr = data.split('\n');
+    console.log('callback', callback);
+    callback(sitesArr);
+  });
+  // console.log('callback on sitesArr', callback(sitesArr));
+  // console.log('Inside readListofUrls', sitesArr);
+  // return callback(sitesArr);
+
 };
 
-exports.isUrlInList = function(url, callback) {
+exports.isUrlInList = function(url, callback1) {
+  console.log('inside isUrlInList');
+  exports.readListOfUrls((sites) => {
+    console.log('sites------------>', sites);
+    console.log('url', url);
+    let answer = _.contains(sites, url);
+    console.log('answer', answer);
+    callback1(answer);
+  });
   // step 1 read list
   // step 2 see if url is contained in the read list
 
 };
 
+
+/*
+exports.isUrlInList(url, function(exists) {
+  if (!exists) {
+    addUrlToList
+  }
+})
+
+*/
+
 exports.addUrlToList = function(url, callback) {
-  // Url in list???
+  // console.log('TEST ------->', exports.isUrlInList(url));
+
   fs.appendFile(exports.paths.list, url + '\n', (err) => {
     if (err) {
       throw err;
@@ -44,8 +75,10 @@ exports.addUrlToList = function(url, callback) {
       console.log('Data was appended to file');
     }
   });
+  // Url in list???
 };
 
 exports.isUrlArchived = function(url, callback) {};
 
 exports.downloadUrls = function(urls) {};
+// test

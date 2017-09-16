@@ -36,10 +36,14 @@ var actions = {
       console.log('body', body);
       // body url=www.google.com
       console.log('post', post);
-      archive.readListOfUrls();
-      archive.addUrlToList(post.url);
-      res.writeHead(200, {'Content-type': 'text/plain'});
-      res.end('URL Saved');
+      archive.isUrlInList(post.url, function(exists) {
+        if (!exists) {
+          console.log('WOOOOOO');
+          archive.addUrlToList(post.url);
+        }
+      });
+      res.writeHead(200, { 'Content-type': 'text/plain' });
+      res.end();
     });
   }
 };
